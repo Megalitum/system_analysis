@@ -33,6 +33,11 @@ namespace SA_lab_5
             }
         }
 
+        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void CalculateCoefficients()
         {
             throw new NotImplementedException();
@@ -63,6 +68,11 @@ namespace SA_lab_5
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        {
+            throw new NotImplementedException();
         }
 
         protected override void CalculateCoefficients()
@@ -96,6 +106,11 @@ namespace SA_lab_5
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        {
+            throw new NotImplementedException();
         }
 
         protected override void CalculateCoefficients()
