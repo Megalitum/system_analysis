@@ -23,6 +23,7 @@ namespace SA_lab_5
         public MainWindow()
         {
             InitializeComponent();
+            // random string
         }
     }
 }
