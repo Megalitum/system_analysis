@@ -9,27 +9,27 @@ namespace SA_lab_5
     class DefaultCell : BaseCell
     {
         public DefaultCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
-        public override double Fullness
+        public override Func<double, double> Fullness
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(this.fullness_expert * (1 + this.Alpha * t), 1);
             }
         }
 
-        public override double Reliability
+        public override Func<double, double> Reliability
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(this.reliability_expert * (1 + this.Gamma * t), 1);
             }
         }
 
-        public override double Timeliness
+        public override Func<double, double> Timeliness
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Max(this.timeliness_expert * (1 - this.Beta * t * t), 1);
             }
         }
 
@@ -40,33 +40,35 @@ namespace SA_lab_5
 
         protected override void CalculateCoefficients()
         {
-            throw new NotImplementedException();
+            this.Alpha = this.alpha_expert > 1 ? 0 : Math.Exp(this.alpha_expert) * this.fullness_expert * 0.5;
+            this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
+            this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
         }
     }
     class VariantCell : BaseCell
     {
         public VariantCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
-        public override double Fullness
+        public override Func<double, double> Fullness
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(this.fullness_expert * (1 + 0.5 * (1 + this.Alpha) * t), 1);
             }
         }
 
-        public override double Reliability
+        public override Func<double, double> Reliability
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(this.reliability_expert * (1 + (1 + this.Gamma) * t) * 1e-2, 1);
             }
         }
 
-        public override double Timeliness
+        public override Func<double, double> Timeliness
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(0.5 * this.timeliness_expert * (2 - this.Beta * t) * (2 - this.Beta * t), 1);
             }
         }
 
@@ -77,14 +79,17 @@ namespace SA_lab_5
 
         protected override void CalculateCoefficients()
         {
-            throw new NotImplementedException();
+            // this must be changed after task resolve
+            this.Alpha = this.alpha_expert > 1 ? 0 : Math.Exp(this.alpha_expert) * this.fullness_expert * 0.5;
+            this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
+            this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
         }
     }
 
     class CustomCell : BaseCell
     {
         public CustomCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
-        public override double Fullness
+        public override Func<double, double> Fullness
         {
             get
             {
@@ -92,7 +97,7 @@ namespace SA_lab_5
             }
         }
 
-        public override double Reliability
+        public override Func<double, double> Reliability
         {
             get
             {
@@ -100,7 +105,7 @@ namespace SA_lab_5
             }
         }
 
-        public override double Timeliness
+        public override Func<double, double> Timeliness
         {
             get
             {

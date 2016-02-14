@@ -18,20 +18,20 @@ namespace SA_lab_5
     }
     interface IBaseCell
     {
-        double Fullness { get; } // returns delegate that calculates fullness
-        double Reliability { get; } // returns delegate that calculates reliability
-        double Timeliness { get; } // returns delegate that calculates timeliness
+        Func<double, double> Fullness { get; } // returns delegate that calculates fullness
+        Func<double, double> Reliability { get; } // returns delegate that calculates reliability
+        Func<double, double> Timeliness { get; } // returns delegate that calculates timeliness
         DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
     }
 
     abstract class BaseCell : IBaseCell
     {
-        private double fullness_expert;
-        private double reliablility_expert;
-        private double timeliness_expert;
-        private double alpha_expert;
-        private double beta_expert;
-        private double gamma_expert;
+        protected double fullness_expert;
+        protected double reliability_expert;
+        protected double timeliness_expert;
+        protected double alpha_expert;
+        protected double beta_expert;
+        protected double gamma_expert;
         public double Alpha { get; protected set; }
         public double Beta { get; protected set; }
         public double Gamma { get; protected set; }
@@ -39,7 +39,7 @@ namespace SA_lab_5
         public BaseCell(double fe, double re, double te, double ae, double be, double ge)
         {
             this.fullness_expert = fe;
-            this.reliablility_expert = re;
+            this.reliability_expert = re;
             this.timeliness_expert = te;
             this.alpha_expert = ae;
             this.beta_expert = be;
@@ -49,10 +49,10 @@ namespace SA_lab_5
         protected abstract void CalculateCoefficients();
 
         public abstract DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
-        public abstract double Fullness { get; }
+        public abstract Func<double, double> Fullness { get; }
 
-        public abstract double Reliability { get; }
+        public abstract Func<double, double> Reliability { get; }
 
-        public abstract double Timeliness { get; }
+        public abstract Func<double, double> Timeliness { get; }
     }
 }

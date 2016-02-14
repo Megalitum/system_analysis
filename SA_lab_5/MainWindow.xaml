@@ -4,10 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SA_lab_5"
-        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Лабораторная работа №5" Height="350" Width="525">
     <Grid>
-        <!--<oxy:PlotView Model="{Binding MyModel}"/>-->
     </Grid>
 </Window>
