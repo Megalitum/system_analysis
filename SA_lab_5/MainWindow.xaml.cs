@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace SA_lab_5
 {
@@ -20,9 +21,58 @@ namespace SA_lab_5
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ExpertDataModel dataModel = null; // model to store Cells
+        bool refreshView = true; // variable which determines if data in the interface should be refreshed
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog()
+            {
+                Filter = "Spreadsheet | *.xlsx, *.xls",
+                InitialDirectory = Environment.CurrentDirectory
+            };
+            if (openDlg.ShowDialog() == true)
+            {
+                dataModel = new ExpertDataModel(openDlg.FileName);
+                refreshView = true;
+            }
+        }
+
+        private void Open_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog()
+            {
+                Filter = "Text file | *.txt",
+                InitialDirectory = Environment.CurrentDirectory
+            };
+            if (saveDlg.ShowDialog() == true)
+            {
+                // save generated data 
+            }
+        }
+
+        private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true; // to be fixed
+        }
+
+        private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
+
+        private void Close_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }
