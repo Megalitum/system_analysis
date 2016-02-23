@@ -89,7 +89,7 @@
     </Compile>
     <Compile Include="BaseCell.cs" />
     <Compile Include="Cells.cs" />
-    <Compile Include="DataModel.cs" />
+    <Compile Include="ExpertDataModel.cs" />
     <Compile Include="FuncObj.cs" />
     <Compile Include="InformationFunctionPlot.xaml.cs">
       <DependentUpon>InformationFunctionPlot.xaml</DependentUpon>
