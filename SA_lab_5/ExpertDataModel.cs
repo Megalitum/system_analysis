@@ -51,8 +51,8 @@ namespace SA_lab_5
             excel_app.Quit();
 
 
-            int M = dataset.Tables[0].Columns.Count;
-            int N = dataset.Tables[0].Rows.Count;
+            this.M = dataset.Tables[0].Columns.Count;
+            this.N = dataset.Tables[0].Rows.Count;
             array = new DefaultCell[N, M];
             for (int i = 0; i < N; i++)
             {

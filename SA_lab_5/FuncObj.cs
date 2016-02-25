@@ -29,7 +29,7 @@ public class FuncObj
         //intervals with crucial points
         List<Tuple<double, double>> interval = new List<Tuple<double, double>>();
         bool flag = this.f(a) < 0 ? false : true;
-        double l, past = this.a; //left and past point interval
+        double past = this.a; // past point interval
         for (double i = this.a; i <= this.b;)
         {
 
