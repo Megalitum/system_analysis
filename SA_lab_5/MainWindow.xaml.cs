@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Data;
 
 namespace SA_lab_5
 {
@@ -22,7 +23,7 @@ namespace SA_lab_5
     public partial class MainWindow : Window
     {
         private ExpertDataModel dataModel = null; // model to store Cells
-        bool refreshView = true; // variable which determines if data in the interface should be refreshed
+        private bool dataModified = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,13 +33,19 @@ namespace SA_lab_5
         {
             OpenFileDialog openDlg = new OpenFileDialog()
             {
-                Filter = "Spreadsheet | *.xlsx, *.xls",
+                Filter = "Spreadsheet |*.xlsx;*.xls",
                 InitialDirectory = Environment.CurrentDirectory
             };
             if (openDlg.ShowDialog() == true)
             {
                 dataModel = new ExpertDataModel(openDlg.FileName);
-                refreshView = true;
+                tabControl.IsEnabled = true;
+                DataTable dt = new DataTable();
+                dt.Columns.Add();
+                dt.Rows.Add();
+                dt.DefaultView[0][0] = 10;
+                influenceGrid.ItemsSource = dt.DefaultView;
+                //TODO: refresh tables if needed
             }
         }
 
@@ -62,7 +69,7 @@ namespace SA_lab_5
 
         private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true; // to be fixed
+            e.CanExecute = this.dataModified; // to be fixed
         }
 
         private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -74,5 +81,11 @@ namespace SA_lab_5
         {
             e.CanExecute = true;
         }
+
+        private void influenceGrid_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            MessageBox.Show(e.TotalManipulation.ToString());
+        }
+
     }
 }

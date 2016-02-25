@@ -29,17 +29,28 @@
                 <Separator HorizontalAlignment="Left" Height="1" Width="Auto"/>
                 <MenuItem Header="Выход" HorizontalAlignment="Left" Width="Auto" Command="ApplicationCommands.Close"/>
             </MenuItem>
+            <MenuItem Header="Выполнение">
+                <MenuItem Header="Поиск интервалов" HorizontalAlignment="Left" Width="Auto"/>
+                <MenuItem Header="Классификация ситуаций" HorizontalAlignment="Left" Width="Auto"/>
+            </MenuItem>
             <MenuItem Header="О программе"/>
         </Menu>
-        <TabControl x:Name="tabControl" Margin="0,20,0,0" Grid.RowSpan="2">
-            <TabItem Header="Исходные данные">
-                <Grid Background="#FFE5E5E5"/>
+        <TabControl x:Name="tabControl" Margin="0,20,0,0" Grid.RowSpan="2" IsEnabled="False">
+            <TabItem Header="Влияние факторов">
+                <DataGrid x:Name="influenceGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
             </TabItem>
-            <TabItem Header="Период формирования решения">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Полнота">
+                <DataGrid x:Name="fullnessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
             </TabItem>
-            <TabItem Header="Классификация ситуации">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Достоверность">
+                <DataGrid x:Name="reliabilityGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
+            </TabItem>
+            <TabItem Header="Своевременность">
+                <DataGrid x:Name="timelinessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2"/>
