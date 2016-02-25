@@ -30,20 +30,16 @@ namespace SA_lab_5
         protected double reliability_expert;
         protected double timeliness_expert;
         protected double alpha_expert;
-        protected double beta_expert;
-        protected double gamma_expert;
         public double Alpha { get; protected set; }
         public double Beta { get; protected set; }
         public double Gamma { get; protected set; }
 
-        public BaseCell(double fe, double re, double te, double ae, double be, double ge)
+        public BaseCell(double fe, double re, double te, double ae)
         {
             this.fullness_expert = fe;
             this.reliability_expert = re;
             this.timeliness_expert = te;
             this.alpha_expert = ae;
-            this.beta_expert = be;
-            this.gamma_expert = ge;
             CalculateCoefficients();
         }
         protected abstract void CalculateCoefficients();

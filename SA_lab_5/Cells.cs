@@ -8,7 +8,7 @@ namespace SA_lab_5
 {
     class DefaultCell : BaseCell
     {
-        public DefaultCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
+        public DefaultCell(double fe, double re, double te, double ae) : base(fe, re, te, ae) { }
         public override Func<double, double> Fullness
         {
             get
@@ -45,9 +45,10 @@ namespace SA_lab_5
             this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
         }
     }
+
     class VariantCell : BaseCell
     {
-        public VariantCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
+        public VariantCell(double fe, double re, double te, double ae) : base(fe, re, te, ae) { }
         public override Func<double, double> Fullness
         {
             get
@@ -88,7 +89,7 @@ namespace SA_lab_5
 
     class CustomCell : BaseCell
     {
-        public CustomCell(double fe, double re, double te, double ae, double be, double ge) : base(fe, re, te, ae, be, ge) { }
+        public CustomCell(double fe, double re, double te, double ae) : base(fe, re, te, ae) { }
         public override Func<double, double> Fullness
         {
             get
