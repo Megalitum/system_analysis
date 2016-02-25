@@ -22,7 +22,7 @@ namespace SA_lab_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ExpertDataModel dataModel = null; // model to store Cells
+        private ExpertDataModel<DefaultCell> dataModel = null; // model to store Cells
         private bool dataModified = false;
         public MainWindow()
         {
@@ -38,13 +38,12 @@ namespace SA_lab_5
             };
             if (openDlg.ShowDialog() == true)
             {
-                dataModel = new ExpertDataModel(openDlg.FileName);
+                dataModel = new ExpertDataModel<DefaultCell>(openDlg.FileName);
+                influenceGrid.ItemsSource = dataModel.dataset.Tables[1].DefaultView;
+                fullnessGrid.ItemsSource = dataModel.dataset.Tables[2].DefaultView;
+                reliabilityGrid.ItemsSource = dataModel.dataset.Tables[3].DefaultView;
+                timelinessGrid.ItemsSource = dataModel.dataset.Tables[4].DefaultView;
                 tabControl.IsEnabled = true;
-                DataTable dt = new DataTable();
-                dt.Columns.Add();
-                dt.Rows.Add();
-                dt.DefaultView[0][0] = 10;
-                influenceGrid.ItemsSource = dt.DefaultView;
                 //TODO: refresh tables if needed
             }
         }
@@ -80,11 +79,6 @@ namespace SA_lab_5
         private void Close_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        }
-
-        private void influenceGrid_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
-        {
-            MessageBox.Show(e.TotalManipulation.ToString());
         }
 
     }

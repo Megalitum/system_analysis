@@ -44,6 +44,11 @@ namespace SA_lab_5
             this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
             this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
         }
+
+        public static DefaultCell CreateInstance(double fe, double re, double te, double ae)
+        {
+            return new DefaultCell(fe, re, te, ae);
+        }
     }
 
     class VariantCell : BaseCell
@@ -85,6 +90,10 @@ namespace SA_lab_5
             this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
             this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
         }
+        public static VariantCell CreateInstance(double fe, double re, double te, double ae)
+        {
+            return new VariantCell(fe, re, te, ae);
+        }
     }
 
     class CustomCell : BaseCell
@@ -122,6 +131,10 @@ namespace SA_lab_5
         protected override void CalculateCoefficients()
         {
             throw new NotImplementedException();
+        }
+        public static CustomCell CreateInstance(double fe, double re, double te, double ae)
+        {
+            return new CustomCell(fe, re, te, ae);
         }
     }
 }
