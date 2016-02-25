@@ -67,7 +67,7 @@ namespace SA_lab_5
                 {
                     if (dataset.Tables[1].Rows[i][j] == DBNull.Value) array[i, j] = null;
                     else array[i, j - 1] = (T)Activator.CreateInstance(typeof(T),
-                        dataset.Tables["If"].Rows[i][j], dataset.Tables["Ir"].Rows[i][j], 
+                        dataset.Tables["If"].Rows[i][j], dataset.Tables["Ir"].Rows[i][j],
                         dataset.Tables["It"].Rows[i][j], dataset.Tables["a"].Rows[i][j]);
                 }
             }
