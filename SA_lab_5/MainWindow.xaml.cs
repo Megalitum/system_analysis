@@ -22,7 +22,9 @@ namespace SA_lab_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ExpertDataModel<DefaultCell> dataModel = null; // model to store Cells
+        private dynamic dataModel = null; // model to store Cells
+        private string structureName = "Default";
+        private string filename = null;
         private bool dataModified = false;
         public MainWindow()
         {
@@ -38,14 +40,41 @@ namespace SA_lab_5
             };
             if (openDlg.ShowDialog() == true)
             {
-                dataModel = new ExpertDataModel<DefaultCell>(openDlg.FileName);
-                influenceGrid.ItemsSource = dataModel.dataset.Tables[1].DefaultView;
-                fullnessGrid.ItemsSource = dataModel.dataset.Tables[2].DefaultView;
-                reliabilityGrid.ItemsSource = dataModel.dataset.Tables[3].DefaultView;
-                timelinessGrid.ItemsSource = dataModel.dataset.Tables[4].DefaultView;
+                filename = openDlg.FileName;
+                LoadModel();
                 tabControl.IsEnabled = true;
                 //TODO: refresh tables if needed
             }
+        }
+
+        private void LoadModel()
+        {
+            if (filename == null)
+            {
+                return;
+            }
+            switch (structureName)
+            {
+                case "Default":
+                    {
+                        dataModel = new ExpertDataModel<DefaultCell>(filename);
+                        break;
+                    }
+                case "Variant":
+                    {
+                        dataModel = new ExpertDataModel<VariantCell>(filename);
+                        break;
+                    }
+                case "Custom":
+                    {
+                        dataModel = new ExpertDataModel<CustomCell>(filename);
+                        break;
+                    }
+            }
+            influenceGrid.ItemsSource = dataModel.dataset.Tables[1].DefaultView;
+            fullnessGrid.ItemsSource = dataModel.dataset.Tables[2].DefaultView;
+            reliabilityGrid.ItemsSource = dataModel.dataset.Tables[3].DefaultView;
+            timelinessGrid.ItemsSource = dataModel.dataset.Tables[4].DefaultView;
         }
 
         private void Open_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -62,13 +91,14 @@ namespace SA_lab_5
             };
             if (saveDlg.ShowDialog() == true)
             {
+                dataModified = false;
                 // save generated data 
             }
         }
 
         private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = this.dataModified; // to be fixed
+            e.CanExecute = dataModified; // to be fixed
         }
 
         private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -81,5 +111,31 @@ namespace SA_lab_5
             e.CanExecute = true;
         }
 
+        private void Structure_Type_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem s = sender as MenuItem;
+            if ((string) s.Tag == structureName)
+            {
+                return;
+            }
+            foreach (var item in structureMenu.Items)
+            {
+                MenuItem menuitem = item as MenuItem;
+                if (menuitem != null)
+                {
+                    menuitem.IsChecked = false;
+                }
+            }
+            s.IsChecked = true;
+            structureName = (string) s.Tag;
+            LoadModel();
+            e.Handled = true;
+        }
+
+        private void Grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+                dataModified = true;
+        }
     }
 }

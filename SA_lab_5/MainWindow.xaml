@@ -33,6 +33,11 @@
                 <MenuItem Header="Поиск интервалов" HorizontalAlignment="Left" Width="Auto"/>
                 <MenuItem Header="Классификация ситуаций" HorizontalAlignment="Left" Width="Auto"/>
             </MenuItem>
+            <MenuItem x:Name="structureMenu" Header="Структура функций">
+                <MenuItem Tag="Default" Header="Общая" HorizontalAlignment="Left" Width="160" IsCheckable="True" IsChecked="True" Click="Structure_Type_Click"/>
+                <MenuItem Tag="Variant" Header="Заданная" HorizontalAlignment="Left" Width="160" IsCheckable="True" Click="Structure_Type_Click"/>
+                <MenuItem Tag="Custom" Header="Собственная" HorizontalAlignment="Left" Width="160" IsCheckable="True" Click="Structure_Type_Click"/>
+            </MenuItem>
             <MenuItem Header="О программе"/>
         </Menu>
         <TabControl x:Name="tabControl" Margin="0,20,0,0" Grid.RowSpan="2" IsEnabled="False">
@@ -42,15 +47,15 @@
             </TabItem>
             <TabItem Header="Полнота">
                 <DataGrid x:Name="fullnessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
+                          CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
             <TabItem Header="Достоверность">
                 <DataGrid x:Name="reliabilityGrid" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
+                          CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
             <TabItem Header="Своевременность">
                 <DataGrid x:Name="timelinessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
+                          CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2"/>
