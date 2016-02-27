@@ -15,9 +15,9 @@ public class FuncObj
     double eps { get; set; }
     int maxiter { get; set; }
     List<double> point;
-    List<Tuple<double, double>> root;
+    public List<Tuple<double, double>> root;
 
-    public FuncObj(Func<double, double> f, double a, double b, double lb, double ub, double eps, int maxiter = 100)
+    public FuncObj(Func<double, double> f, double a, double b, double lb, double ub, double eps = 0.001, int maxiter = 100)
     {
         this.f = f;
         this.a = a < b ? a : b;
@@ -63,6 +63,7 @@ public class FuncObj
             }
             catch (NonConvergenceException e)
             {
+                
                 //Console.WriteLine("Not converge. Exception: {0}", e.ToString());
             }
         }
