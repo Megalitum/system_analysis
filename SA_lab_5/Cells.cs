@@ -35,7 +35,20 @@ namespace SA_lab_5
 
         public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
         {
-            throw new NotImplementedException();
+            int b = 1000;
+            Func<double, double> nij = delegate(double t)
+            {
+                return 1 - Math.Log(1 + this.alpha_expert * Fullness(t) * Reliability(t) * Timeliness(t));
+            };
+            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound);
+            Br_method.FindPoints();
+            Br_method.FindRoot();
+            DoubleInterval[] root = new DoubleInterval[Br_method.root.Count];
+            for (int i = 0; i < Br_method.root.Count; i++)
+            {
+                root[i] = new DoubleInterval(Br_method.root[i].Item1, Br_method.root[i].Item2);
+            }
+            return root;
         }
 
         protected override void CalculateCoefficients()
