@@ -22,7 +22,7 @@ namespace SA_lab_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        private dynamic dataModel = null; // model to store Cells
+        private dynamic dataModel = null;
         private string structureName = "Default";
         private string filename = null;
         private bool dataModified = false;
@@ -43,7 +43,6 @@ namespace SA_lab_5
                 filename = openDlg.FileName;
                 LoadModel();
                 tabControl.IsEnabled = true;
-                //TODO: refresh tables if needed
             }
         }
 
@@ -136,6 +135,23 @@ namespace SA_lab_5
         {
             if (e.EditAction == DataGridEditAction.Commit)
                 dataModified = true;
+        }
+
+        private void IntervalSearch_Click(object sender, RoutedEventArgs e)
+        {
+            TableWindow tblWindow = new TableWindow(false);
+            tblWindow.Show();
+        }
+
+        private void Classification_Click(object sender, RoutedEventArgs e)
+        {
+            TableWindow tblWindow = new TableWindow(true);
+            tblWindow.Show();
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Window about program will appear here");
         }
     }
 }
