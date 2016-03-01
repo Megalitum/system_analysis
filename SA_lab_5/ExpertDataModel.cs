@@ -37,6 +37,7 @@ namespace SA_lab_5
                 for (int row = 2; row <= excelRange.Rows.Count; row++)
                 {
                     dataRow = dt.NewRow();
+                    
 
                     for (int col = 2; col < excelRange.Columns.Count; col++)
                     {
