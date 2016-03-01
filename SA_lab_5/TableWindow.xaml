@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SA_lab_5"
         mc:Ignorable="d"
-        Title="TableWindow" Height="300" Width="300">
+        Title="TableWindow" Height="370" Width="600">
     <Grid>
-        
+        <DataGrid 
+            AutoGenerateColumns="True" 
+            IsEnabled="{Binding isIntervalShow }"
+            Loaded="Interval_Loaded"
+            HorizontalAlignment="Left" Margin="26,53,0,0" VerticalAlignment="Top" Height="183" Width="541"/>
+        <Label Content="Величина допуску" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Width="110"/>
+        <ComboBox Loaded="ComboBox_Loaded"
+                  SelectionChanged="ComboBox_SelectionChanged"
+                  IsEnabled="True"
+                  HorizontalAlignment="Left" Margin="136,14,0,0" VerticalAlignment="Top" Width="30"
+         >
+            <ComboBoxItem Content="0.1" HorizontalAlignment="Left" Width="30"/>
+            <ComboBoxItem Content="0.2" HorizontalAlignment="Left" Width="30"/>
+        </ComboBox>
+
     </Grid>
 </Window>
