@@ -44,12 +44,13 @@ namespace SA_lab_5
                 filename = openDlg.FileName;
                 LoadModel();
                 tabControl.IsEnabled = true;
+                foreach (MenuItem item in execMenu.Items)
+                {
+                    item.IsEnabled = true;
+                }
+                statusBlock.Text = $"File {filename.Split('\\').Last()} loaded succedfully.";
             }
-            foreach (MenuItem item in execMenu.Items)
-            {
-                item.IsEnabled = true;
-            }
-            statusBlock.Text = $"File {filename.Split('\\').Last()} loaded succedfully.";
+
         }
 
         private void LoadModel()
@@ -120,7 +121,7 @@ namespace SA_lab_5
         private void Structure_Type_Click(object sender, RoutedEventArgs e)
         {
             MenuItem s = sender as MenuItem;
-            if ((string) s.Tag == structureName)
+            if ((string)s.Tag == structureName)
             {
                 return;
             }
@@ -133,7 +134,7 @@ namespace SA_lab_5
                 }
             }
             s.IsChecked = true;
-            structureName = (string) s.Tag;
+            structureName = (string)s.Tag;
             e.Handled = true;
         }
 
@@ -153,8 +154,8 @@ namespace SA_lab_5
         {
             if (dataModel != null)
             {
-            TableWindow tblWindow = new TableWindow(true);
-            tblWindow.Show();
+                TableWindow tblWindow = new TableWindow(true);
+                tblWindow.Show();
             }
         }
 
@@ -162,6 +163,6 @@ namespace SA_lab_5
         {
             MessageBox.Show("Window about program will appear here");
         }
-        
+
     }
 }

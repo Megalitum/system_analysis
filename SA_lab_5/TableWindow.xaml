@@ -21,6 +21,6 @@
             <ComboBoxItem Content="0.8"/>
             <ComboBoxItem Content="0.9"/>
         </ComboBox>
-        <DataGrid x:Name="intervalTable" Grid.Row="1"/>
+        <DataGrid x:Name="intervalTable" Grid.Row="1" ColumnWidth="*"/>
     </Grid>
 </Window>
