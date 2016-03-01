@@ -45,6 +45,11 @@ namespace SA_lab_5
                 LoadModel();
                 tabControl.IsEnabled = true;
             }
+            foreach (MenuItem item in execMenu.Items)
+            {
+                item.IsEnabled = true;
+            }
+            statusBlock.Text = $"File {filename.Split('\\').Last()} loaded succedfully.";
         }
 
         private void LoadModel()
@@ -146,13 +151,17 @@ namespace SA_lab_5
 
         private void Classification_Click(object sender, RoutedEventArgs e)
         {
+            if (dataModel != null)
+            {
             TableWindow tblWindow = new TableWindow(true);
             tblWindow.Show();
+            }
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Window about program will appear here");
         }
+        
     }
 }

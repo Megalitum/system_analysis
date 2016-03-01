@@ -29,9 +29,9 @@
                 <Separator HorizontalAlignment="Left" Height="1" Width="Auto"/>
                 <MenuItem Header="Выход" HorizontalAlignment="Left" Width="Auto" Command="ApplicationCommands.Close"/>
             </MenuItem>
-            <MenuItem Header="Выполнение">
-                <MenuItem Header="Поиск интервалов" HorizontalAlignment="Left" Width="Auto" Click="IntervalSearch_Click"/>
-                <MenuItem Header="Классификация ситуаций" HorizontalAlignment="Left" Width="Auto" Click="Classification_Click"/>
+            <MenuItem x:Name="execMenu" Header="Выполнение">
+                <MenuItem Header="Поиск интервалов" HorizontalAlignment="Left" Width="Auto" Click="IntervalSearch_Click" IsEnabled="False"/>
+                <MenuItem Header="Классификация ситуаций" HorizontalAlignment="Left" Width="Auto" Click="Classification_Click" IsEnabled="False"/>
             </MenuItem>
             <MenuItem x:Name="structureMenu" Header="Структура функций">
                 <MenuItem Tag="Default" Header="Общая" HorizontalAlignment="Left" Width="160" IsCheckable="True" IsChecked="True" Click="Structure_Type_Click"/>
@@ -61,6 +61,24 @@
                           CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Row="2"/>
+        <StatusBar Grid.Row="2">
+            <TextBlock x:Name="statusBlock">
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBoxBase.TextChanged">
+                        <!--this stuff is supposed to animate statusBar, but dependency property and data binding are required-->
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="1"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+        </StatusBar>
     </Grid>
 </Window>
