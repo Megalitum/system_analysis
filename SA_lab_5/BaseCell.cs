@@ -21,7 +21,7 @@ namespace SA_lab_5
         Func<double, double> Fullness { get; } // returns delegate that calculates fullness
         Func<double, double> Reliability { get; } // returns delegate that calculates reliability
         Func<double, double> Timeliness { get; } // returns delegate that calculates timeliness
-        DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
+        List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
     }
 
     abstract class BaseCell : IBaseCell
@@ -44,7 +44,8 @@ namespace SA_lab_5
         }
         protected abstract void CalculateCoefficients();
 
-        public abstract DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
+        public abstract List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
+
         public abstract Func<double, double> Fullness { get; }
 
         public abstract Func<double, double> Reliability { get; }
