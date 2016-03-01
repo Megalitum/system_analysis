@@ -43,18 +43,21 @@
         <TabControl x:Name="tabControl" Margin="0,20,0,0" Grid.RowSpan="2" IsEnabled="False">
             <TabItem Header="Влияние факторов">
                 <DataGrid x:Name="influenceGrid" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserResizeRows="False" CanUserResizeColumns="False"/>
+                          CanUserResizeRows="False" CanUserResizeColumns="False" ColumnWidth="*"/>
             </TabItem>
             <TabItem Header="Полнота">
                 <DataGrid x:Name="fullnessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
-                          CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
+                          CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"
+                          ColumnWidth="*"/>
             </TabItem>
             <TabItem Header="Достоверность">
                 <DataGrid x:Name="reliabilityGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          ColumnWidth="*"
                           CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
             <TabItem Header="Своевременность">
                 <DataGrid x:Name="timelinessGrid" CanUserAddRows="False" CanUserDeleteRows="False"
+                          ColumnWidth="*"
                           CanUserResizeRows="False" CanUserResizeColumns="False" CellEditEnding="Grid_CellEditEnding"/>
             </TabItem>
         </TabControl>
