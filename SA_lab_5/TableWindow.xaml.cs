@@ -19,14 +19,17 @@ namespace SA_lab_5
     /// </summary>
     public partial class TableWindow : Window
     {
+        private dynamic dataModel;
         public TableWindow()
         {
             InitializeComponent();
         }
 
-        public TableWindow(bool classification)
+        public TableWindow(bool classification, object dataModel)
         {
             InitializeComponent();
+            this.dataModel = dataModel;
+
         }
     }
 }
