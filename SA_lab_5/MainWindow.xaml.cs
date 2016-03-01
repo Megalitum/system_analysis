@@ -23,6 +23,7 @@ namespace SA_lab_5
     public partial class MainWindow : Window
     {
         private dynamic dataModel = null;
+        public dynamic intvscell = null;
         private string structureName = "Default";
         private string filename = null;
         private bool dataModified = false;
@@ -52,21 +53,22 @@ namespace SA_lab_5
             {
                 return;
             }
+            dataModel = new ExpertDataModel(filename);
             switch (structureName)
             {
                 case "Default":
                     {
-                        dataModel = new ExpertDataModel<DefaultCell>(filename);
+                        intvscell = new IntervalsSSCells<DefaultCell>(dataModel);
                         break;
                     }
                 case "Variant":
                     {
-                        dataModel = new ExpertDataModel<VariantCell>(filename);
+                        intvscell = new IntervalsSSCells<VariantCell>(dataModel);
                         break;
                     }
                 case "Custom":
                     {
-                        dataModel = new ExpertDataModel<CustomCell>(filename);
+                        intvscell = new IntervalsSSCells<CustomCell>(dataModel);
                         break;
                     }
             }
@@ -127,7 +129,6 @@ namespace SA_lab_5
             }
             s.IsChecked = true;
             structureName = (string) s.Tag;
-            LoadModel();
             e.Handled = true;
         }
 
@@ -139,7 +140,7 @@ namespace SA_lab_5
 
         private void IntervalSearch_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tblWindow = new TableWindow(false);
+            TableWindow tblWindow = new TableWindow(intvscell);
             tblWindow.Show();
         }
 
