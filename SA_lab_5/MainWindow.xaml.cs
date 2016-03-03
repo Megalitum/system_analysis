@@ -157,7 +157,7 @@ namespace SA_lab_5
         {
             if (dataModel != null)
             {
-                TableWindow tblWindow = new TableWindow(true, classification: true);
+                TableWindow tblWindow = new TableWindow(intvscell, classification: true);
                 tblWindow.Show();
             }
         }

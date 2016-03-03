@@ -4,14 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SA_lab_5"
+        xmlns:converters="clr-namespace:SA_lab_5.Converters"
         mc:Ignorable="d"
         Title="TableWindow" Height="350" Width="500">
+    <Window.Resources>
+        <converters:SituationBackgroundConverter x:Key="styleConverter"/>
+        <Style x:Key="SituationStyle" TargetType="{x:Type DataGridCell}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=lowerBound, Path=Text}" Value="0.1">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource styleConverter}">
+                                <Binding RelativeSource="{RelativeSource Self}"/>
+                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}" Path="Intvscell"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+            </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Content="Нижняя граница:" Margin="10,5,378,5" VerticalAlignment="Center" Height="30"/>
+        <Label Content="Нижняя граница:" Margin="10,5,368,5" VerticalAlignment="Center" Height="30"/>
         <TextBox x:Name="lowerBound" IsReadOnly="True" HorizontalAlignment="Left" Height="30" Margin="129,5,0,5" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="40"/>
         <Label Content="Верхняя граница:" Margin="198,5,176,5" VerticalAlignment="Center" Height="30"/>
         <ComboBox x:Name="upperBound" SelectedValuePath="Content" HorizontalAlignment="Left" Height="30" Margin="321,5,0,5" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="50" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
@@ -21,6 +39,8 @@
             <ComboBoxItem Content="0,8"/>
             <ComboBoxItem Content="0,9"/>
         </ComboBox>
-        <DataGrid x:Name="intervalTable" ItemsSource="{DynamicResource ResourceKey=intervalSource}" Grid.Row="1" ColumnWidth="*"/>
+        <DataGrid x:Name="intervalTable" ItemsSource="{Binding intervalSource}" Grid.Row="1" ColumnWidth="*"
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CellStyle="{StaticResource SituationStyle}"
+                  CanUserResizeRows="False" CanUserSortColumns="False" IsReadOnly="True" MouseDoubleClick="intervalTable_MouseDoubleClick"/>
     </Grid>
 </Window>

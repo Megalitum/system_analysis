@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Cell Logic\BaseCell.cs" />
     <Compile Include="Cell Logic\Cells.cs" />
+    <Compile Include="Converters\SituationBackgroundConverter.cs" />
     <Compile Include="ExpertDataModel.cs" />
     <Compile Include="FuncObj.cs" />
     <Compile Include="Additional Windows\InformationFunctionPlot.xaml.cs">
