@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SA_lab_5
+namespace SA_lab_5.Cell_Logic
 {
     struct DoubleInterval
     {
@@ -24,7 +24,7 @@ namespace SA_lab_5
         List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
     }
 
-    abstract class BaseCell : IBaseCell
+    public abstract class BaseCell : IBaseCell
     {
         protected double fullness_expert;
         protected double reliability_expert;

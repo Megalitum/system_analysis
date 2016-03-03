@@ -1,4 +1,4 @@
-﻿<Window x:Class="SA_lab_5.InformationFunctionPlot"
+﻿<Window x:Class="SA_lab_5.Additional_Windows.InformationFunctionPlot"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,8 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:SA_lab_5"
         mc:Ignorable="d"
-        Title="(None)" Height="300" Width="900">
+        Title="(None)" Height="300" Width="900"
+        DataContext="{Binding Model}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

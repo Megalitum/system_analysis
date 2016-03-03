@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SA_lab_5
+namespace SA_lab_5.Cell_Logic
 {
     class DefaultCell : BaseCell
     {

@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Data;
 
+using SA_lab_5.Additional_Windows;
+using SA_lab_5.Cell_Logic;
+
 namespace SA_lab_5
 {
     /// <summary>
@@ -146,7 +149,7 @@ namespace SA_lab_5
 
         private void IntervalSearch_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tblWindow = new TableWindow(intvscell);
+            TableWindow tblWindow = new TableWindow(intvscell, classification: false);
             tblWindow.Show();
         }
 
@@ -154,7 +157,7 @@ namespace SA_lab_5
         {
             if (dataModel != null)
             {
-                TableWindow tblWindow = new TableWindow(true);
+                TableWindow tblWindow = new TableWindow(true, classification: true);
                 tblWindow.Show();
             }
         }

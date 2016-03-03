@@ -12,16 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SA_lab_5
+using OxyPlot;
+using SA_lab_5.Cell_Logic;
+
+namespace SA_lab_5.Additional_Windows
 {
     /// <summary>
     /// Interaction logic for InformationFunctionPlot.xaml
     /// </summary>
     public partial class InformationFunctionPlot : Window
     {
-        public InformationFunctionPlot()
+        public InformationViewModel Model { get; private set; }
+        public InformationFunctionPlot(BaseCell cell)
         {
             InitializeComponent();
+            
         }
     }
 }

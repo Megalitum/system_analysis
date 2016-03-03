@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Additional Windows\InformationViewModel.cs" />
     <Compile Include="Cell Logic\IntervalSSCells.cs" />
     <Compile Include="Additional Windows\TableWindow.xaml.cs">
       <DependentUpon>TableWindow.xaml</DependentUpon>

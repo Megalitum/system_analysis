@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace SA_lab_5
+namespace SA_lab_5.Cell_Logic
 {
     class IntervalsSSCells<T> where T: BaseCell
     {
