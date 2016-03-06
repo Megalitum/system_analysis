@@ -29,7 +29,7 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                return (t) => Math.Max(this.timeliness_expert * (1 - this.Beta * t * t), 1);
+                return (t) => Math.Max(this.timeliness_expert * (1 - this.Beta * t * t), 0);
             }
         }
 

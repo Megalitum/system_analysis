@@ -48,10 +48,12 @@ namespace SA_lab_5.Additional_Windows
             if (classification)
             {
                 lowerBound.Text = "0.1";
+                Title = "Классификация ситуаций";
             }
             else
             {
                 lowerBound.Text = "0.0";
+                Title = "Вычисление интервалов принятия решения";
             }
             intervalTable.ItemsSource = intervalSource.DefaultView;
         }
@@ -75,7 +77,7 @@ namespace SA_lab_5.Additional_Windows
             if (intervalSource == null)
             {
                 intervalSource = GenerateTable<string>();
-                ClassificationMatrix = GenerateTable<SituationClass>(); //to examine
+                ClassificationMatrix = GenerateTable<SituationClass>();
             }
             double eta_left = Classification ? .1 : .0;
             double eta_right = Double.Parse(upperBound.SelectedValue.ToString());
@@ -121,7 +123,15 @@ namespace SA_lab_5.Additional_Windows
         private void intervalTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var dataGrid = sender as DataGrid;
-            var selected = dataGrid.SelectedCells.First();
+            var row = (dataGrid.CurrentItem as DataRowView).Row;
+            var column = dataGrid.CurrentColumn;
+            int rowId = intervalSource.Rows.IndexOf(row);
+            int columnId = column.DisplayIndex;
+            var cell = intvscell.cell[rowId, columnId];
+            if (cell != null)
+            {
+                (new InformationFunctionPlot(cell, rowId, columnId) { Owner = this }).Show();
+            }
         }
     }
 }

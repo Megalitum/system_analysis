@@ -23,10 +23,12 @@ namespace SA_lab_5.Additional_Windows
     public partial class InformationFunctionPlot : Window
     {
         public InformationViewModel Model { get; private set; }
-        public InformationFunctionPlot(BaseCell cell)
+        public InformationFunctionPlot(BaseCell cell, int rowId, int colId)
         {
             InitializeComponent();
-            
+            this.Title = String.Format("Изменение показателей информированности в ситуации S{0} при условии фактора F{1}", rowId, colId);
+            Model = new InformationViewModel(cell);
+            this.DataContext = Model;
         }
     }
 }
