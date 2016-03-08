@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SA_lab_5
+namespace SA_lab_5.Cell_Logic
 {
     struct DoubleInterval
     {
@@ -21,10 +21,10 @@ namespace SA_lab_5
         Func<double, double> Fullness { get; } // returns delegate that calculates fullness
         Func<double, double> Reliability { get; } // returns delegate that calculates reliability
         Func<double, double> Timeliness { get; } // returns delegate that calculates timeliness
-        DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
+        List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
     }
 
-    abstract class BaseCell : IBaseCell
+    public abstract class BaseCell : IBaseCell
     {
         protected double fullness_expert;
         protected double reliability_expert;
@@ -44,7 +44,8 @@ namespace SA_lab_5
         }
         protected abstract void CalculateCoefficients();
 
-        public abstract DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound);
+        public abstract List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
+
         public abstract Func<double, double> Fullness { get; }
 
         public abstract Func<double, double> Reliability { get; }

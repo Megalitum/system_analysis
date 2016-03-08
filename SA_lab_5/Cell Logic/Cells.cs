@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SA_lab_5
+namespace SA_lab_5.Cell_Logic
 {
     class DefaultCell : BaseCell
     {
@@ -29,26 +29,21 @@ namespace SA_lab_5
         {
             get
             {
-                return (t) => Math.Max(this.timeliness_expert * (1 - this.Beta * t * t), 1);
+                return (t) => Math.Max(this.timeliness_expert * (1 - this.Beta * t * t), 0);
             }
         }
 
-        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        public override List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound)
         {
             int b = 1000;
             Func<double, double> nij = delegate(double t)
             {
-                return 1 - Math.Log(1 + this.alpha_expert * Fullness(t) * Reliability(t) * Timeliness(t));
+                return 1 - Math.Log(1 + this.Alpha * Fullness(t) * Reliability(t) * Timeliness(t),2);
             };
-            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound);
+            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound, 0.1);
             Br_method.FindPoints();
             Br_method.FindRoot();
-            DoubleInterval[] root = new DoubleInterval[Br_method.root.Count];
-            for (int i = 0; i < Br_method.root.Count; i++)
-            {
-                root[i] = new DoubleInterval(Br_method.root[i].Item1, Br_method.root[i].Item2);
-            }
-            return root;
+            return Br_method.root;
         }
 
         protected override void CalculateCoefficients()
@@ -56,11 +51,6 @@ namespace SA_lab_5
             this.Alpha = this.alpha_expert > 1 ? 0 : Math.Exp(this.alpha_expert) * this.fullness_expert * 0.5;
             this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
             this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
-        }
-
-        public static DefaultCell CreateInstance(double fe, double re, double te, double ae)
-        {
-            return new DefaultCell(fe, re, te, ae);
         }
     }
 
@@ -91,7 +81,7 @@ namespace SA_lab_5
             }
         }
 
-        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        public override List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound)
         {
             throw new NotImplementedException();
         }
@@ -99,9 +89,9 @@ namespace SA_lab_5
         protected override void CalculateCoefficients()
         {
             // this must be changed after task resolve
-            this.Alpha = this.alpha_expert > 1 ? 0 : Math.Exp(this.alpha_expert) * this.fullness_expert * 0.5;
-            this.Gamma = this.alpha_expert > 1 ? 0 : Math.Exp(this.reliability_expert) * this.alpha_expert * 0.05;
-            this.Beta = this.alpha_expert > 1 ? 0 : (this.alpha_expert + this.Gamma) * this.timeliness_expert * 1e-5;
+            this.Gamma = this.alpha_expert > 1 ? 0 : 1+0.05/(this.alpha_expert*this.alpha_expert)*this.timeliness_expert;
+            this.Alpha = this.alpha_expert > 1 ? 0 : 1 + 0.05 * this.alpha_expert * this.alpha_expert / (this.Gamma) * this.fullness_expert;
+            this.Beta = this.alpha_expert > 1 ? 0 : 1 + (this.alpha_expert/(this.Gamma*this.Gamma)*this.reliability_expert * 1e-2);
         }
         public static VariantCell CreateInstance(double fe, double re, double te, double ae)
         {
@@ -136,7 +126,7 @@ namespace SA_lab_5
             }
         }
 
-        public override DoubleInterval[] FindTimeInterval(double lowerbound, double upperbound)
+        public override List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound)
         {
             throw new NotImplementedException();
         }

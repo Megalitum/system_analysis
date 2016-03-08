@@ -8,11 +8,9 @@ using System.Data;
 
 namespace SA_lab_5
 {
-    class ExpertDataModel<T> where T : BaseCell
+    class ExpertDataModel
     {
         public DataSet dataset;
-        protected T[,] array;
-        int N, M; //number of rows and columns;
 
         public ExpertDataModel(string fileName)
         {
@@ -39,7 +37,7 @@ namespace SA_lab_5
                     dataRow = dt.NewRow();
                     
 
-                    for (int col = 2; col < excelRange.Columns.Count; col++)
+                    for (int col = 2; col <= excelRange.Columns.Count; col++)
                     {
                         if (first_sheet || excelRange.Cells[row, col].Value2 != null)
                         {
@@ -58,21 +56,8 @@ namespace SA_lab_5
             wb.Close();
             excel_app.Quit();
 
-
-            M = dataset.Tables[0].Columns.Count;
-            N = dataset.Tables[0].Rows.Count;
-            array = new T[N, M];
-            for (int i = 0; i < N; i++)
-            {
-                for (int j = 1; j < M; j++)
-                {
-                    if (dataset.Tables[1].Rows[i][j] == DBNull.Value) array[i, j] = null;
-                    else array[i, j - 1] = (T)Activator.CreateInstance(typeof(T),
-                        dataset.Tables["If"].Rows[i][j], dataset.Tables["Ir"].Rows[i][j],
-                        dataset.Tables["It"].Rows[i][j], dataset.Tables["a"].Rows[i][j]);
-                }
-            }
-
         }
+
+        
     }
 }

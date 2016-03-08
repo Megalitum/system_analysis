@@ -12,16 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SA_lab_5
+using OxyPlot;
+using SA_lab_5.Cell_Logic;
+
+namespace SA_lab_5.Additional_Windows
 {
     /// <summary>
     /// Interaction logic for InformationFunctionPlot.xaml
     /// </summary>
     public partial class InformationFunctionPlot : Window
     {
-        public InformationFunctionPlot()
+        public InformationViewModel Model { get; private set; }
+        public InformationFunctionPlot(BaseCell cell, int rowId, int colId)
         {
             InitializeComponent();
+            this.Title = String.Format("Изменение показателей информированности в ситуации S{0} при условии фактора F{1}", rowId+1, colId+1);
+            Model = new InformationViewModel(cell);
+            this.DataContext = Model;
         }
     }
 }

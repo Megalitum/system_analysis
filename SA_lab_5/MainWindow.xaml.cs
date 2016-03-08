@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Data;
 
+using SA_lab_5.Additional_Windows;
+using SA_lab_5.Cell_Logic;
+
 namespace SA_lab_5
 {
     /// <summary>
@@ -23,6 +26,7 @@ namespace SA_lab_5
     public partial class MainWindow : Window
     {
         private dynamic dataModel = null;
+        public dynamic intvscell = null;
         private string structureName = "Default";
         private string filename = null;
         private bool dataModified = false;
@@ -43,12 +47,13 @@ namespace SA_lab_5
                 filename = openDlg.FileName;
                 LoadModel();
                 tabControl.IsEnabled = true;
+                foreach (MenuItem item in execMenu.Items)
+                {
+                    item.IsEnabled = true;
+                }
+                statusBlock.Text = $"File {filename.Split('\\').Last()} loaded succedfully.";
             }
-            foreach (MenuItem item in execMenu.Items)
-            {
-                item.IsEnabled = true;
-            }
-            statusBlock.Text = $"File {filename.Split('\\').Last()} loaded succedfully.";
+
         }
 
         private void LoadModel()
@@ -57,21 +62,22 @@ namespace SA_lab_5
             {
                 return;
             }
+            dataModel = new ExpertDataModel(filename);
             switch (structureName)
             {
                 case "Default":
                     {
-                        dataModel = new ExpertDataModel<DefaultCell>(filename);
+                        intvscell = new IntervalsSSCells<DefaultCell>(dataModel);
                         break;
                     }
                 case "Variant":
                     {
-                        dataModel = new ExpertDataModel<VariantCell>(filename);
+                        intvscell = new IntervalsSSCells<VariantCell>(dataModel);
                         break;
                     }
                 case "Custom":
                     {
-                        dataModel = new ExpertDataModel<CustomCell>(filename);
+                        intvscell = new IntervalsSSCells<CustomCell>(dataModel);
                         break;
                     }
             }
@@ -118,7 +124,7 @@ namespace SA_lab_5
         private void Structure_Type_Click(object sender, RoutedEventArgs e)
         {
             MenuItem s = sender as MenuItem;
-            if ((string) s.Tag == structureName)
+            if ((string)s.Tag == structureName)
             {
                 return;
             }
@@ -131,8 +137,7 @@ namespace SA_lab_5
                 }
             }
             s.IsChecked = true;
-            structureName = (string) s.Tag;
-            LoadModel();
+            structureName = (string)s.Tag;
             e.Handled = true;
         }
 
@@ -144,18 +149,15 @@ namespace SA_lab_5
 
         private void IntervalSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (dataModel != null)
-            {
-                TableWindow tblWindow = new TableWindow(false, dataModel);
-                tblWindow.Show();
-            }
+            TableWindow tblWindow = new TableWindow(intvscell, classification: false);
+            tblWindow.Show();
         }
 
         private void Classification_Click(object sender, RoutedEventArgs e)
         {
             if (dataModel != null)
             {
-                TableWindow tblWindow = new TableWindow(true, dataModel);
+                TableWindow tblWindow = new TableWindow(intvscell, classification: true);
                 tblWindow.Show();
             }
         }
@@ -164,6 +166,6 @@ namespace SA_lab_5
         {
             MessageBox.Show("Window about program will appear here");
         }
-        
+
     }
 }
