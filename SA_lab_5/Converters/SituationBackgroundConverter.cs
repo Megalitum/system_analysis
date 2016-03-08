@@ -26,8 +26,8 @@ namespace SA_lab_5.Converters
             var situation = (SituationClass)classification.Rows[rowId][columnId];
             switch (situation)
             {
-                case SituationClass.Regular: return new SolidColorBrush(Colors.Green);
-                case SituationClass.Critical: return new SolidColorBrush(Colors.YellowGreen);
+                case SituationClass.Regular: return new SolidColorBrush(Colors.YellowGreen);
+                case SituationClass.Critical: return new SolidColorBrush(Colors.Orange);
                 case SituationClass.Dangerous: return new SolidColorBrush(Colors.Red);
             }
             return new SolidColorBrush(Colors.Yellow);
