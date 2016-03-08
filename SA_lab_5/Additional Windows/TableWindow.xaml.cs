@@ -83,9 +83,20 @@ namespace SA_lab_5.Additional_Windows
             double eta_right = Double.Parse(upperBound.SelectedValue.ToString());
             // perform calculations and data source change
             // exampli gratia
-            intervalSource.Rows[0][0] = $"{new Random().Next()}";
-            intervalSource.Rows[0][1] = $"{new Random().Next()}";
-            intervalSource.Rows[0][2] = $"{new Random().Next()}";
+            intvscell.n_left = eta_left;
+            intvscell.n_right = eta_right;
+            intvscell.FindInterval();
+            for (int i = 0; i < intervalSource.Rows.Count; i++)
+            {
+                for (int j = 0; j < intervalSource.Columns.Count; j++)
+                {
+                    intervalSource.Rows[i][j] = intvscell.cellIntervalToString(intvscell.interval[i, j]);
+                }
+            }
+            //intervalSource.Rows[0][0] = $"{new Random().Next()}";
+            //intervalSource.Rows[0][1] = $"{new Random().Next()}";
+            //intervalSource.Rows[0][2] = $"{new Random().Next()}";
+
             // determine class and update corresponing table
             // exampli gratia (all fields must be filled)
             for (int i = 0; i < ClassificationMatrix.Rows.Count; i++)

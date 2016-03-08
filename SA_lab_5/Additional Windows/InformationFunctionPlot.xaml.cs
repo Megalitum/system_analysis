@@ -26,7 +26,7 @@ namespace SA_lab_5.Additional_Windows
         public InformationFunctionPlot(BaseCell cell, int rowId, int colId)
         {
             InitializeComponent();
-            this.Title = String.Format("Изменение показателей информированности в ситуации S{0} при условии фактора F{1}", rowId, colId);
+            this.Title = String.Format("Изменение показателей информированности в ситуации S{0} при условии фактора F{1}", rowId+1, colId+1);
             Model = new InformationViewModel(cell);
             this.DataContext = Model;
         }
