@@ -36,10 +36,7 @@ namespace SA_lab_5.Cell_Logic
         public override List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound)
         {
             int b = 1000;
-            Func<double, double> nij = delegate(double t)
-            {
-                return 1 - Math.Log(1 + this.Alpha * Fullness(t) * Reliability(t) * Timeliness(t),2);
-            };
+            Func<double, double> nij = (double t) => 1 - Math.Log(1 + this.Alpha * Fullness(t) * Reliability(t) * Timeliness(t), 2);
             FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound, 0.1);
             Br_method.FindPoints();
             Br_method.FindRoot();
@@ -93,10 +90,6 @@ namespace SA_lab_5.Cell_Logic
             this.Alpha = this.alpha_expert > 1 ? 0 : 1 + 0.05 * this.alpha_expert * this.alpha_expert / (this.Gamma) * this.fullness_expert;
             this.Beta = this.alpha_expert > 1 ? 0 : 1 + (this.alpha_expert/(this.Gamma*this.Gamma)*this.reliability_expert * 1e-2);
         }
-        public static VariantCell CreateInstance(double fe, double re, double te, double ae)
-        {
-            return new VariantCell(fe, re, te, ae);
-        }
     }
 
     class CustomCell : BaseCell
@@ -134,10 +127,6 @@ namespace SA_lab_5.Cell_Logic
         protected override void CalculateCoefficients()
         {
             throw new NotImplementedException();
-        }
-        public static CustomCell CreateInstance(double fe, double re, double te, double ae)
-        {
-            return new CustomCell(fe, re, te, ae);
         }
     }
 }

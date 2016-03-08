@@ -23,12 +23,17 @@ namespace SA_lab_5.Converters
             int rowId = (dtgrdIS.Table).Rows.IndexOf(row);
             int columnId = (values[2] as DataGridCell).Column.DisplayIndex;
             DataTable classification = values[3] as DataTable;
-            var situation = (SituationClass)classification.Rows[rowId][columnId];
-            switch (situation)
+            var situation = classification.Rows[rowId][columnId];
+            if (situation == DBNull.Value)
+            {
+                return new SolidColorBrush(Colors.Gray);
+            }
+            switch ((SituationClass)situation)
             {
                 case SituationClass.Regular: return new SolidColorBrush(Colors.YellowGreen);
                 case SituationClass.Critical: return new SolidColorBrush(Colors.Orange);
                 case SituationClass.Dangerous: return new SolidColorBrush(Colors.Red);
+
             }
             return new SolidColorBrush(Colors.Yellow);
         }

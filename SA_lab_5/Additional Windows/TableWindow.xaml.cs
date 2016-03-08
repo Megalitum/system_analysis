@@ -103,9 +103,10 @@ namespace SA_lab_5.Additional_Windows
             {
                 for (int j = 0; j < ClassificationMatrix.Columns.Count; j++)
                 {
-                    ClassificationMatrix.Rows[i][j] = SituationClass.Regular;
+                    ClassificationMatrix.Rows[i][j] = DBNull.Value;
                 }
             }
+            ClassificationMatrix.Rows[0][0] = SituationClass.Regular;
             ClassificationMatrix.Rows[0][1] = SituationClass.Critical;
             ClassificationMatrix.Rows[0][2] = SituationClass.Dangerous;
         }
