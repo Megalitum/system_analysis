@@ -93,6 +93,14 @@ namespace SA_lab_5.Additional_Windows
                     intervalSource.Rows[i][j] = intvscell.cellIntervalToString(intvscell.interval[i, j]);
                 }
             }
+
+            List<string> hint;
+            if (Classification)
+            {
+                hint = intvscell.uninterval_tostring(intvscell.unioninterval());
+            }
+
+
             //intervalSource.Rows[0][0] = $"{new Random().Next()}";
             //intervalSource.Rows[0][1] = $"{new Random().Next()}";
             //intervalSource.Rows[0][2] = $"{new Random().Next()}";
