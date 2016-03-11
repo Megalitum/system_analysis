@@ -65,7 +65,8 @@ namespace SA_lab_5.Cell_Logic
             {
                 foreach (Tuple<double, double> i in interval)
                 {
-                    ret += $"[{Math.Round(i.Item1, 1)}; {Math.Round(i.Item2, 1)}];";
+                    ret += $"[{i.Item1}; {i.Item2}];";
+                    //ret += $"[{Math.Round(i.Item1, 3)}; {Math.Round(i.Item2, 3)}];";
                 }
                 return ret;
             }
@@ -98,9 +99,25 @@ namespace SA_lab_5.Cell_Logic
             foreach (var ob in union)
             {
                 if (ob.Item1 < 0 || ob.Item2 < 0) res.Add("empty set");
-                else res.Add($"[{Math.Round(ob.Item1, 1)}; {Math.Round(ob.Item2, 1)}];");
+
+                else res.Add($"[{Math.Round(ob.Item1, 3)}; {Math.Round(ob.Item2, 3)}];");
+                //else res.Add($"[{ob.Item1}; {ob.Item2}];");
             }
             return res;
+        }
+
+        public bool classify(List<Tuple<double, double>> tw, double t0, double w0 = 0.5)
+        {
+            //t - T0; w - weights; 
+            double sum = 0;
+            double w = 0; // weights more tw weights
+            for (int i = 0; i < tw.Count; i++)
+            {
+                if (t0 >= tw[i].Item1) w += tw[i].Item2;
+                sum += tw[i].Item2;
+            }
+                        
+            return w >= w0 ? true : false;
         }
     }
 }

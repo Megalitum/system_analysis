@@ -24,8 +24,8 @@ public class FuncObj
         this.b = a < b ? b : a;
         this.lb = lb < ub ? lb : ub;
         this.ub = lb < ub ? ub : lb;
-        this.fa = delegate(double i) { return f(i) - this.lb; };
-        this.fb = delegate(double i) { return -1*(f(i) - this.ub); };
+        this.fa = delegate(double i) { return -1*(f(i) - this.lb); };
+        this.fb = delegate(double i) { return (f(i) - this.ub); };
         this.eps = eps;
         this.point = new List<double>();
         this.maxiter = maxiter;

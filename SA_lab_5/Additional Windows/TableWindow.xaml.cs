@@ -21,7 +21,7 @@ namespace SA_lab_5.Additional_Windows
         Dangerous = 1,
         Critical = 2,
         Regular = 3
-    };
+    };  
     /// <summary>
     /// Interaction logic for TableWindow.xaml
     /// </summary>
