@@ -43,8 +43,8 @@ namespace SA_lab_5.Additional_Windows
         public TableWindow(dynamic obj, bool classification)
         {
             intvscell = obj;
-            InitializeComponent();
             this.Classification = classification;
+            InitializeComponent();
             if (classification)
             {
                 lowerBound.Text = "0.1";
