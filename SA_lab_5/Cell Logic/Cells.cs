@@ -37,7 +37,7 @@ namespace SA_lab_5.Cell_Logic
         {
             int b = 1000;
             Func<double, double> nij = (double t) => 1 - Math.Log(1 + this.Alpha * Fullness(t) * Reliability(t) * Timeliness(t), 2);
-            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound, 0.1);
+            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound);
             Br_method.FindPoints();
             Br_method.FindRoot();
             return Br_method.root;

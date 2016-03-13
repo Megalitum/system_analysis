@@ -38,6 +38,7 @@ public class FuncObj
         List<Tuple<double, double>> interval = new List<Tuple<double, double>>();
         bool flag = membership(this.a);
         double past = this.a; // last point interval
+        double step = (this.b - this.a) / 1e4;
 
         for (double i = this.a; i <= this.b; )
         {
@@ -48,7 +49,7 @@ public class FuncObj
                 //Console.WriteLine("[{0} {1}]", past, i);
             }
             past = i;
-            i += eps;
+            i += step;
             if (i > b && i < b + eps) i = b;
         }
 
@@ -61,10 +62,9 @@ public class FuncObj
                 else this.point.Add(Brent.FindRoot(this.fa, interval[i].Item1, interval[i].Item2, eps, maxiter));
                 //Console.WriteLine(point[i]);
             }
-            catch (NonConvergenceException e)
+            catch (NonConvergenceException)
             {
-                
-                //Console.WriteLine("Not converge. Exception: {0}", e.ToString());
+                //next time use TryFindRoot method
             }
         }
         if (point.Count > 0)
