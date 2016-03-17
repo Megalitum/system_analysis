@@ -65,8 +65,8 @@ namespace SA_lab_5.Cell_Logic
             {
                 foreach (Tuple<double, double> i in interval)
                 {
-                    ret += $"[{i.Item1}; {i.Item2}];";
-                    //ret += $"[{Math.Round(i.Item1, 3)}; {Math.Round(i.Item2, 3)}];";
+                    //ret += $"[{i.Item1}; {i.Item2}];";
+                    ret += $"[{Math.Round(i.Item1, 1)}; {Math.Round(i.Item2, 1)}];";
                 }
                 return ret;
             }

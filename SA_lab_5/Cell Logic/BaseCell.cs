@@ -44,7 +44,15 @@ namespace SA_lab_5.Cell_Logic
         }
         protected abstract void CalculateCoefficients();
 
-        public abstract List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound);
+        public List<Tuple<double, double>> FindTimeInterval(double lowerbound, double upperbound)
+        {
+            int b = 1000;
+            Func<double, double> nij = (double t) => 1 - Math.Log(1 + this.Alpha * Fullness(t) * Reliability(t) * Timeliness(t), 2);
+            FuncObj Br_method = new FuncObj(nij, 0, b, lowerbound, upperbound);
+            Br_method.FindPoints();
+            Br_method.FindRoot();
+            return Br_method.root;
+        }
 
         public abstract Func<double, double> Fullness { get; }
 

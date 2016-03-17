@@ -63,24 +63,6 @@ namespace SA_lab_5
                 return;
             }
             dataModel = new ExpertDataModel(filename);
-            switch (structureName)
-            {
-                case "Default":
-                    {
-                        intvscell = new IntervalsSSCells<DefaultCell>(dataModel);
-                        break;
-                    }
-                case "Variant":
-                    {
-                        intvscell = new IntervalsSSCells<VariantCell>(dataModel);
-                        break;
-                    }
-                case "Custom":
-                    {
-                        intvscell = new IntervalsSSCells<CustomCell>(dataModel);
-                        break;
-                    }
-            }
             influenceGrid.ItemsSource = dataModel.dataset.Tables[1].DefaultView;
             fullnessGrid.ItemsSource = dataModel.dataset.Tables[2].DefaultView;
             reliabilityGrid.ItemsSource = dataModel.dataset.Tables[3].DefaultView;
@@ -149,6 +131,7 @@ namespace SA_lab_5
 
         private void IntervalSearch_Click(object sender, RoutedEventArgs e)
         {
+            init_intvscell();
             TableWindow tblWindow = new TableWindow(intvscell, classification: false);
             tblWindow.Show();
         }
@@ -157,6 +140,7 @@ namespace SA_lab_5
         {
             if (dataModel != null)
             {
+                init_intvscell();
                 TableWindow tblWindow = new TableWindow(intvscell, classification: true);
                 tblWindow.Show();
             }
@@ -165,6 +149,28 @@ namespace SA_lab_5
         private void About_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Window about program will appear here");
+        }
+
+        private void init_intvscell()
+        {
+            switch (structureName)
+            {
+                case "Default":
+                    {
+                        intvscell = new IntervalsSSCells<DefaultCell>(dataModel);
+                        break;
+                    }
+                case "Variant":
+                    {
+                        intvscell = new IntervalsSSCells<VariantCell>(dataModel);
+                        break;
+                    }
+                case "Custom":
+                    {
+                        intvscell = new IntervalsSSCells<CustomCell>(dataModel);
+                        break;
+                    }
+            }
         }
 
     }
