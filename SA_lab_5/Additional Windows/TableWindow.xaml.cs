@@ -62,6 +62,7 @@ namespace SA_lab_5.Additional_Windows
         private DataTable GenerateTable<T>()
         {
             DataTable dt = new DataTable();
+            if (Classification) dt.Columns.Add("S", typeof(T));
             foreach (var column in intvscell.columns)
             {
                 dt.Columns.Add(column, typeof(T));
@@ -87,19 +88,30 @@ namespace SA_lab_5.Additional_Windows
             intvscell.n_left = eta_left;
             intvscell.n_right = eta_right;
             intvscell.FindInterval();
-            for (int i = 0; i < intervalSource.Rows.Count; i++)
+            if (!Classification)
             {
-                for (int j = 0; j < intervalSource.Columns.Count; j++)
+                for (int i = 0; i < intervalSource.Rows.Count; i++)
                 {
-                    intervalSource.Rows[i][j] = intvscell.cellIntervalToString(intvscell.interval[i, j]);
+                    for (int j = 0; j < intervalSource.Columns.Count; j++)
+                    {
+                        intervalSource.Rows[i][j] = intvscell.cellIntervalToString(intvscell.interval[i, j]);
+                    }
                 }
             }
-
-            List<string> hint;
-            if (Classification)
+            else
             {
+                for (int i = 0; i < intervalSource.Rows.Count; i++)
+                {
+                    for (int j = 1; j < intervalSource.Columns.Count; j++)
+                    {
+                        intervalSource.Rows[i][j] = intvscell.cellIntervalToString(intvscell.interval[i, j-1]);
+                    }
+                }
+
+                List<string> hint;
                 var interval = intvscell.unioninterval();
                 hint = intvscell.uninterval_tostring(interval);
+                for (int i = 0; i < intervalSource.Rows.Count; i++) intervalSource.Rows[i][0] = hint[i];
                 List<int> level = intvscell.determine_class(interval);
                 //intervalSource.Rows[0][0] = $"{new Random().Next()}";
                 //intervalSource.Rows[0][1] = $"{new Random().Next()}";
