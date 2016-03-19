@@ -73,7 +73,7 @@ namespace SA_lab_5.Cell_Logic
             this.Gamma = this.alpha_expert > 1 ? 0 : 1+0.5/(this.alpha_expert*this.alpha_expert)*this.timeliness_expert;
             this.Alpha = this.alpha_expert > 1 ? 0 : 1 + 0.05 * this.alpha_expert * this.alpha_expert / (this.Gamma) * this.fullness_expert;
             //this.Beta = this.alpha_expert > 1 ? 0 : 1 + (this.alpha_expert/(this.Gamma*this.Gamma)*this.reliability_expert * 1e-2);
-            this.Beta = this.alpha_expert > 1 ? 0 : this.alpha_expert / (this.Gamma * this.Gamma) * this.reliability_expert * 1e-3;
+            this.Beta = this.alpha_expert > 1 ? 0 : this.alpha_expert / (this.Gamma * this.Gamma) * this.reliability_expert  *1e-3;
         }
     }
 

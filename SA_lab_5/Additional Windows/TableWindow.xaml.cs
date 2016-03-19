@@ -18,6 +18,7 @@ namespace SA_lab_5.Additional_Windows
 {
     public enum SituationClass
     {
+        //
         Dangerous = 1,
         Critical = 2,
         Regular = 3
@@ -97,26 +98,26 @@ namespace SA_lab_5.Additional_Windows
             List<string> hint;
             if (Classification)
             {
-                hint = intvscell.uninterval_tostring(intvscell.unioninterval());
-            }
+                var interval = intvscell.unioninterval();
+                hint = intvscell.uninterval_tostring(interval);
+                List<int> level = intvscell.determine_class(interval);
+                //intervalSource.Rows[0][0] = $"{new Random().Next()}";
+                //intervalSource.Rows[0][1] = $"{new Random().Next()}";
+                //intervalSource.Rows[0][2] = $"{new Random().Next()}";
 
-
-            //intervalSource.Rows[0][0] = $"{new Random().Next()}";
-            //intervalSource.Rows[0][1] = $"{new Random().Next()}";
-            //intervalSource.Rows[0][2] = $"{new Random().Next()}";
-
-            // determine class and update corresponing table
-            // exampli gratia (all fields must be filled)
-            for (int i = 0; i < ClassificationMatrix.Rows.Count; i++)
-            {
-                for (int j = 0; j < ClassificationMatrix.Columns.Count; j++)
+                // determine class and update corresponing table
+                // exampli gratia (all fields must be filled)
+                for (int i = 0; i < ClassificationMatrix.Rows.Count; i++)
                 {
-                    ClassificationMatrix.Rows[i][j] = DBNull.Value;
+                    for (int j = 0; j < ClassificationMatrix.Columns.Count; j++)
+                    {
+                        ClassificationMatrix.Rows[i][j] = level[i];
+                    }
                 }
+                //ClassificationMatrix.Rows[0][0] = SituationClass.Regular;
+                //ClassificationMatrix.Rows[0][1] = SituationClass.Critical;
+                //ClassificationMatrix.Rows[0][2] = SituationClass.Dangerous;
             }
-            ClassificationMatrix.Rows[0][0] = SituationClass.Regular;
-            ClassificationMatrix.Rows[0][1] = SituationClass.Critical;
-            ClassificationMatrix.Rows[0][2] = SituationClass.Dangerous;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

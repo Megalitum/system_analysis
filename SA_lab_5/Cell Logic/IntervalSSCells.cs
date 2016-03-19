@@ -7,8 +7,9 @@ using System.Data;
 
 namespace SA_lab_5.Cell_Logic
 {
-    class IntervalsSSCells<T> where T: BaseCell
+    class IntervalsSSCells<T> where T : BaseCell
     {
+        public double[,] t_plus_w, t_minus_w;
         public List<String> columns { get; set; }
         public T[,] cell { get; set; }
         public List<Tuple<double, double>>[,] interval{get; private set;}
@@ -17,6 +18,8 @@ namespace SA_lab_5.Cell_Logic
         public double n_left { get; set; }
         public IntervalsSSCells(ExpertDataModel model)
         {
+            tw_init();
+
             M = model.dataset.Tables[0].Columns.Count;
             N = model.dataset.Tables[0].Rows.Count;
 
@@ -106,18 +109,58 @@ namespace SA_lab_5.Cell_Logic
             return res;
         }
 
-        public bool classify(List<Tuple<double, double>> tw, double t0, double w0 = 0.5)
+        public bool classify(double[,] tw, double t0, double w0 = 0.5)
         {
             //t - T0; w - weights; 
             double sum = 0;
             double w = 0; // weights more tw weights
-            for (int i = 0; i < tw.Count; i++)
+            for (int i = 0; i < tw.GetLength(0); i++)
             {
-                if (t0 >= tw[i].Item1) w += tw[i].Item2;
-                sum += tw[i].Item2;
+                if (t0 >= tw[i,0]) w += tw[i,1];
+                sum += tw[i,1];
             }
                         
-            return w >= w0 ? true : false;
+            return w/sum >= w0 ? true : false;
+        }
+
+        public List<int> determine_class(List<Tuple<double, double>> a)
+        {
+            //3 - regular
+            //2 - critial
+            //1 - dangerous
+            List<int> res = new List<int>();
+            foreach (var ob in a)
+            {
+                if (classify(t_plus_w, ob.Item2 - ob.Item1, 0.5)) res.Add(3);
+                else if (!classify(t_minus_w, ob.Item2 - ob.Item1, 0.5)) res.Add(1);
+                else res.Add(2);
+            }
+            return res;
+        }
+
+        public void tw_init()
+        {
+            int n = 11;
+            //const for t_plus_w
+            double c1 = 0;
+            double h1 = 5;
+            double prob1 = 0.1;
+            //const for t_minus_w
+            double c2 = 5;
+            double h2 = 5;
+            double prob2 = 0.1;
+            t_plus_w = new double[n, 2];
+            t_minus_w = new double[n, 2];
+            for (int i = 0; i < n; i++)
+            {
+                t_plus_w[i, 0] = c1+i*h1;
+                t_plus_w[i, 1] = 1 - prob1 * i;
+
+                t_minus_w[i, 0] = c2 + i * h2;
+                t_minus_w[i, 1] = prob2 * i;
+
+            }
+
         }
     }
 }
