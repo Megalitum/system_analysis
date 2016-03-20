@@ -84,7 +84,7 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(this.alpha_expert * this.fullness_expert * Math.Pow(1.5, 60) / Math.Exp(9 * this.Gamma), 1);
             }
         }
 
@@ -92,7 +92,7 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Min(1e-2*this.reliability_expert*Math.Pow(1+this.Beta, 2) * t*t, 1);
             }
         }
 
@@ -100,13 +100,16 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                throw new NotImplementedException();
+                return (t) => Math.Max(1 - this.Gamma * (this.timeliness_expert + this.fullness_expert) * (t / 4 + 0.5 * this.alpha_expert + 0.25 * this.Beta), 0);
+                //return (t) => Math.Max(1-this.Gamma*(this.timeliness_expert+this.fullness_expert)*(t/4+0.5*this.alpha_expert+0.25*this.Beta), 0);
             }
         }
 
         protected override void CalculateCoefficients()
         {
-            throw new NotImplementedException();
+            this.Alpha = this.alpha_expert > 1 ? 0 : Math.Exp(-this.fullness_expert) * Math.Pow(this.alpha_expert, 2) * this.fullness_expert / (1+this.reliability_expert*this.alpha_expert);
+            this.Beta = this.alpha_expert > 1 ? 0 : this.timeliness_expert*this.fullness_expert*(1+this.reliability_expert+Math.Exp(2*this.alpha_expert))/(1e3+Math.Exp(10*this.timeliness_expert));
+            this.Gamma = this.alpha_expert > 1 ? 0 : (1+Math.Exp(0.5*this.reliability_expert*this.alpha_expert))/(Math.Pow(this.fullness_expert, 0.5)+Math.Log(this.timeliness_expert+0.5*this.alpha_expert,2));
         }
     }
 }

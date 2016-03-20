@@ -142,7 +142,7 @@ namespace SA_lab_5.Cell_Logic
         {
             int n = 11;
             //const for t_plus_w
-            double c1 = 0;
+            double c1 = 50;
             double h1 = 5;
             double prob1 = 0.1;
             //const for t_minus_w

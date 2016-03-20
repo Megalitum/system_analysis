@@ -119,13 +119,11 @@ namespace SA_lab_5.Additional_Windows
 
                 // determine class and update corresponing table
                 // exampli gratia (all fields must be filled)
-                var rndGenerator = new Random();
                 for (int i = 0; i < ClassificationMatrix.Rows.Count; i++)
                 {
-                    var rowIndex = rndGenerator.Next() % 3 + 1;
                     for (int j = 0; j < ClassificationMatrix.Columns.Count; j++)
                     {
-                        ClassificationMatrix.Rows[i][j] = rowIndex;
+                        ClassificationMatrix.Rows[i][j] = level[i];
                     }
                 }
                 //ClassificationMatrix.Rows[0][0] = SituationClass.Regular;
