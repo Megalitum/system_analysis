@@ -79,7 +79,7 @@ namespace SA_lab_5.Additional_Windows
             if (intervalSource == null)
             {
                 intervalSource = GenerateTable<string>();
-                ClassificationMatrix = GenerateTable<SituationClass>();
+                ClassificationMatrix = Classification ? GenerateTable<SituationClass>() : null;
             }
             double eta_left = Classification ? .1 : .0;
             double eta_right = Double.Parse(upperBound.SelectedValue.ToString());
@@ -119,11 +119,13 @@ namespace SA_lab_5.Additional_Windows
 
                 // determine class and update corresponing table
                 // exampli gratia (all fields must be filled)
+                var rndGenerator = new Random();
                 for (int i = 0; i < ClassificationMatrix.Rows.Count; i++)
                 {
+                    var rowIndex = rndGenerator.Next() % 3 + 1;
                     for (int j = 0; j < ClassificationMatrix.Columns.Count; j++)
                     {
-                        ClassificationMatrix.Rows[i][j] = level[i];
+                        ClassificationMatrix.Rows[i][j] = rowIndex;
                     }
                 }
                 //ClassificationMatrix.Rows[0][0] = SituationClass.Regular;
