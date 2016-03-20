@@ -29,7 +29,7 @@ namespace SA_lab_5.Additional_Windows
         {
             FullnessModel = new PlotModel { Title = "Полнота" };
             var fullnessFunc = cell.Fullness;
-            FullnessModel.Series.Add(new FunctionSeries(fullnessFunc, 0, DetermineLimit(fullnessFunc, 1, 0.1, 5), 0.01)
+            FullnessModel.Series.Add(new FunctionSeries(fullnessFunc, 0, DetermineLimit(fullnessFunc, 1, 0.1, 0.01), 0.01)
             { Color = OxyColors.Red });
             FullnessModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = -0.1, Maximum = 1.1 });
             FullnessModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "t" });

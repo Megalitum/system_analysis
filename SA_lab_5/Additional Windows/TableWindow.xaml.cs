@@ -159,7 +159,8 @@ namespace SA_lab_5.Additional_Windows
             var row = (dataGrid.CurrentItem as DataRowView).Row;
             var column = dataGrid.CurrentColumn;
             int rowId = intervalSource.Rows.IndexOf(row);
-            int columnId = column.DisplayIndex;
+            int columnId = Classification ? column.DisplayIndex-1 : column.DisplayIndex;
+            if (columnId < 0) return;
             var cell = intvscell.cell[rowId, columnId];
             if (cell != null)
             {

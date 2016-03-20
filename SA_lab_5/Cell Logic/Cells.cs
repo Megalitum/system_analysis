@@ -84,7 +84,8 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                return (t) => Math.Min(this.alpha_expert * this.fullness_expert * Math.Pow(1.5, 60) / Math.Exp(9 * this.Gamma), 1);
+                return (t) => Math.Min(0.8+this.alpha_expert * this.fullness_expert * Math.Pow(t, 2) / Math.Exp(2.5 * this.Gamma), 1);
+                //return (t) => Math.Min(this.alpha_expert * this.fullness_expert * Math.Pow(1.5, t) / Math.Exp(9 * this.Gamma), 1);
             }
         }
 
@@ -92,7 +93,7 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                return (t) => Math.Min(1e-2*this.reliability_expert*Math.Pow(1+this.Beta, 2) * t*t, 1);
+                return (t) => Math.Min(1e-2*this.reliability_expert /20*Math.Pow(1+this.Beta, 2) * t*t, 1);
             }
         }
 
@@ -100,7 +101,9 @@ namespace SA_lab_5.Cell_Logic
         {
             get
             {
-                return (t) => Math.Max(1 - this.Gamma * (this.timeliness_expert + this.fullness_expert) * (t / 4 + 0.5 * this.alpha_expert + 0.25 * this.Beta), 0);
+                return (t) => Math.Max(1 - this.timeliness_expert * (this.alpha_expert / (Math.Pow(this.Gamma, 5)) * t + 0.5 * this.alpha_expert + 0.25 * this.Beta), 0);
+
+                //return (t) => Math.Max(1 - this.Gamma * (this.timeliness_expert + this.fullness_expert) * (t / 4 + 0.5 * this.alpha_expert + 0.25 * this.Beta), 0);
                 //return (t) => Math.Max(1-this.Gamma*(this.timeliness_expert+this.fullness_expert)*(t/4+0.5*this.alpha_expert+0.25*this.Beta), 0);
             }
         }
