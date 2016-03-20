@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 using System.Data;
 
@@ -26,9 +27,21 @@ namespace SA_lab_5.Additional_Windows
     /// <summary>
     /// Interaction logic for TableWindow.xaml
     /// </summary>
-    public partial class TableWindow : Window
+    public partial class TableWindow : Window, INotifyPropertyChanged
     {
         private dynamic intvscell;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public DataTable ClassificationMatrix { get; private set; }
         public bool Classification
         {
@@ -135,6 +148,7 @@ namespace SA_lab_5.Additional_Windows
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateDatagrid();
+            OnPropertyChanged("ClassificationMatrix");
         }
 
         private void Interval_Loaded(object sender, RoutedEventArgs e)
